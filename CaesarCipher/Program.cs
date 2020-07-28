@@ -6,9 +6,9 @@ namespace CaesarCipher
 {
     class Program
     {
-        static public string CaesarCypherEncrypt(int key, string phrase)
+        static public string CaesarCypherEncrypt(int key, string phrase, string way)
         {
-            char Encryptor = new DoublyLinkedList<char>();
+            var Encryptor = new DoublyLinkedList<char>();
             string EncryptedPhrase = "";
             char finalLetter = ' ';
             for (int i = 0; i < phrase.Length; i++)
@@ -22,30 +22,58 @@ namespace CaesarCipher
                     }
                     else if (phrase[i] == currentLetter)
                     {
-                        finalLetter = currentLetter;
-                        for (int j = 0; j < key; j++)
+                        if (way == "encrypt")
                         {
-                            finalLetter++;
+                            finalLetter = currentLetter;
+                            for (int j = 0; j < key; j++)
+                            {
+                                finalLetter++;
+                            }
+                            Encryptor.AddNodeToLast(finalLetter);
                         }
-                        Encryptor.AddNodeToLast(finalLetter);
+                        else if (way == "decrypt")
+                        {
+                            finalLetter = currentLetter;
+                            for (int j = 0; j < key; j++)
+                            {
+                                finalLetter--;
+                            }
+                            Encryptor.AddNodeToLast(finalLetter);
+                        }
                     }
                 }
             }
             var runner = Encryptor.Head;
             for (int i = 0; i < Encryptor.Count; i++)
             {
-                EncryptedPhrase += runner;
-                runner = runner.Next;
+                EncryptedPhrase += runner.data;
+                runner = runner.next;
             }
             return EncryptedPhrase;
         }
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter a key for the Caesar Cypher.");
-            int key = int.Parse(Console.ReadLine());
+            string answer = "";
+            string phrase = "";
+            int key = 0;
+            while (true)
+            {
+                Console.WriteLine("Do you want to encrypt or decrypt?");
+                answer = Console.ReadLine().ToLower();
+                if (answer == "encrypt" || answer == "decrypt")
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Check your spelling errors.");
+                }
+            }
             Console.WriteLine("Enter a phrase for the Caesar Cypher.");
-            string phrase = Console.ReadLine();
-            Console.WriteLine(CaesarCypherEncrypt(key, phrase));
+            phrase = Console.ReadLine();  
+            Console.WriteLine("Enter a key for the Caesar Cypher.");
+            key = int.Parse(Console.ReadLine());                      
+            Console.WriteLine(CaesarCypherEncrypt(key, phrase, answer));
         }
     }
 }

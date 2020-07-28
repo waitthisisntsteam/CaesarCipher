@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <Reference Include="doublyLinkedLists">
-      <HintPath>..\..\doublyLinkedLists.dll</HintPath>
+      <HintPath>..\..\doublyLinkedLists\doublyLinkedLists\bin\Debug\netcoreapp3.1\doublyLinkedLists.dll</HintPath>
     </Reference>
   </ItemGroup>
 
